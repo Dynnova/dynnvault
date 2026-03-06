@@ -717,7 +717,7 @@ function App(){
       ]);
       if(tools && tools.length > 0) setSwList(tools);
       if(settings) setStoreInfo(settings);
-      if(pinData && pinData.pin_hash){ setAdminPin(pinData.pin_hash); S.set("adminPinHash", pinData.pin_hash); if(pinData.pin_salt) S.set("adminPinSalt", pinData.pin_salt); }
+      if(pinData && pinData.pin_hash && typeof pinData.pin_hash === "string"){ setAdminPin(pinData.pin_hash); S.set("adminPinHash", pinData.pin_hash); if(pinData.pin_salt) S.set("adminPinSalt", pinData.pin_salt); }
       else { S.del("adminPinHash"); S.del("adminPinSalt"); setAdminPin(null); }
       setLoading(false);
     }
