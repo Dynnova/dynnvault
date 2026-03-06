@@ -378,11 +378,7 @@ function PreviewPage({sw, onClose}){
           {/* Left col */}
           <div style={{display:"flex",flexDirection:"column",gap:12,minHeight:0}}>
             {embed?(
-              <div
-                style={{background:"#000",border:"1px solid var(--border)",aspectRatio:"16/9",overflow:"hidden",flexShrink:0}}
-                onMouseEnter={()=>{ document.getElementById('cur').style.opacity='0'; document.getElementById('cur-r').style.opacity='0'; }}
-                onMouseLeave={()=>{ document.getElementById('cur').style.opacity='1'; document.getElementById('cur-r').style.opacity='1'; }}
-              >
+              <div style={{background:"#000",border:"1px solid var(--border)",aspectRatio:"16/9",overflow:"hidden",flexShrink:0}} data-iframe-zone="1">
                 <iframe src={embed} title="Preview" allowFullScreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" style={{width:"100%",height:"100%",border:"none",display:"block"}}/>
               </div>
             ):(
@@ -701,7 +697,7 @@ function BlackHole(){
 // --- App ---
 function App(){
   const [view, setView] = useState("store");
-  const [swList, setSwList] = useState(DEFAULT_SW);
+  const [swList, setSwList] = useState([]);
   const [storeInfo, setStoreInfo] = useState(DEFAULT_STORE);
   const [adminPin, setAdminPin] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -794,6 +790,14 @@ function App(){
   };
 
   if(previewSw) return <PreviewPage sw={previewSw} onClose={()=>setPreviewSw(null)}/>;
+
+  if(loading) return(
+    <div style={{position:"fixed",inset:0,background:"var(--bg)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,zIndex:9999}}>
+      <div style={{width:32,height:32,border:"1px solid var(--border)",borderTop:"1px solid var(--text)",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>
+      <span style={{fontFamily:"var(--mono)",fontSize:11,color:"var(--muted)",letterSpacing:".1em",textTransform:"uppercase"}}>Loading</span>
+      <style>{"@keyframes spin { to { transform: rotate(360deg); } }"}</style>
+    </div>
+  );
 
   return(
     <div style={{position:"relative",minHeight:"100vh"}}>
