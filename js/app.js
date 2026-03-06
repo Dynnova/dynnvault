@@ -259,7 +259,8 @@ function PinChanger({currentPin, onSave}){
   const go = () => {
     if(n.length<4) return setErr("Min 4 chars");
     if(n!==c) return setErr("Mismatch");
-    S.hash(o).then(oh=>{ if(oh!==currentPin) return setErr("Wrong PIN"); onSave(n); setO(""); setN(""); setC(""); setErr(""); });
+    const salt = S.get("adminPinSalt")?.value || "";
+    S.hash(o, salt).then(oh=>{ if(oh!==currentPin) return setErr("Wrong PIN"); onSave(n); setO(""); setN(""); setC(""); setErr(""); });
   };
   return(
     <div style={{display:"flex",gap:10,alignItems:"flex-end",flexWrap:"wrap"}}>
@@ -378,8 +379,12 @@ function PreviewPage({sw, onClose}){
           {/* Left col */}
           <div style={{display:"flex",flexDirection:"column",gap:12,minHeight:0}}>
             {embed?(
-              <div style={{background:"#000",border:"1px solid var(--border)",aspectRatio:"16/9",overflow:"hidden",flexShrink:0}} data-iframe-zone="1">
-                <iframe src={embed} title="Preview" allowFullScreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" style={{width:"100%",height:"100%",border:"none",display:"block"}}/>
+              <div 
+                style={{background:"#000",border:"1px solid var(--border)",aspectRatio:"16/9",overflow:"hidden",flexShrink:0}}
+                onMouseEnter={()=>{ document.getElementById('cur').style.opacity='0'; document.getElementById('cur-r').style.opacity='0'; }}
+                onMouseLeave={()=>{ document.getElementById('cur').style.opacity='1'; document.getElementById('cur-r').style.opacity='1'; }}
+              >
+                <iframe src={embed} .../>
               </div>
             ):(
               <div style={{background:"var(--surface)",border:"1px solid var(--border)",aspectRatio:"16/9",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
