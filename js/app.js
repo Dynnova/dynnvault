@@ -381,16 +381,21 @@ function PreviewPage({sw, onClose}){
             {embed?(
               <div
                 style={{background:"#000",border:"1px solid var(--border)",aspectRatio:"16/9",overflow:"hidden",flexShrink:0,position:"relative"}}
-                onMouseEnter={()=>{ document.getElementById('cur').style.opacity='0'; document.getElementById('cur-r').style.opacity='0'; }}
-                onMouseLeave={()=>{ document.getElementById('cur').style.opacity='1'; document.getElementById('cur-r').style.opacity='1'; }}
+                onMouseLeave={e=>{
+                  document.getElementById('cur').style.opacity='1';
+                  document.getElementById('cur-r').style.opacity='1';
+                  // aktifin overlay lagi buat next hover
+                  e.currentTarget.querySelector('.iframe-overlay').style.pointerEvents='auto';
+                }}
               >
                 <iframe src={embed} title="Preview" allowFullScreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" style={{width:"100%",height:"100%",border:"none",display:"block"}}/>
-                {/* overlay tipis biar mouse event ke div, bukan langsung ke iframe */}
-                <div style={{position:"absolute",inset:0,zIndex:1}} onMouseEnter={()=>{ document.getElementById('cur').style.opacity='0'; document.getElementById('cur-r').style.opacity='0'; }}/>
-              </div>
-            ):(
-              <div style={{background:"var(--surface)",border:"1px solid var(--border)",aspectRatio:"16/9",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
-                <span style={{color:"var(--muted)",fontSize:13}}>No preview available</span>
+                <div className="iframe-overlay" style={{position:"absolute",inset:0,zIndex:1,pointerEvents:"auto"}}
+                  onMouseEnter={e=>{
+                    document.getElementById('cur').style.opacity='0';
+                    document.getElementById('cur-r').style.opacity='0';
+                    e.currentTarget.style.pointerEvents='none';
+                  }}
+                />
               </div>
             )}
             {(sw.screenshots||[]).filter(Boolean).length>0&&(
