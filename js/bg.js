@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', function(){
+
 (function(){
   var c=document.getElementById('cur'), r=document.getElementById('cur-r');
   var mx=0,my=0,rx=0,ry=0;
@@ -99,3 +101,5 @@
 })();
 </script>
 
+
+});
