@@ -259,8 +259,7 @@ function PinChanger({currentPin, onSave}){
   const go = () => {
     if(n.length<4) return setErr("Min 4 chars");
     if(n!==c) return setErr("Mismatch");
-    const salt = S.get("adminPinSalt")?.value || "";
-    S.hash(o, salt).then(oh=>{ if(oh!==currentPin) return setErr("Wrong PIN"); onSave(n); setO(""); setN(""); setC(""); setErr(""); });
+    S.hash(o).then(oh=>{ if(oh!==currentPin) return setErr("Wrong PIN"); onSave(n); setO(""); setN(""); setC(""); setErr(""); });
   };
   return(
     <div style={{display:"flex",gap:10,alignItems:"flex-end",flexWrap:"wrap"}}>
@@ -384,7 +383,6 @@ function PreviewPage({sw, onClose}){
                 onMouseLeave={e=>{
                   document.getElementById('cur').style.opacity='1';
                   document.getElementById('cur-r').style.opacity='1';
-                  // aktifin overlay lagi buat next hover
                   e.currentTarget.querySelector('.iframe-overlay').style.pointerEvents='auto';
                 }}
               >
@@ -396,6 +394,10 @@ function PreviewPage({sw, onClose}){
                     e.currentTarget.style.pointerEvents='none';
                   }}
                 />
+              </div>
+            ):(
+              <div style={{background:"var(--surface)",border:"1px solid var(--border)",aspectRatio:"16/9",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                <span style={{color:"var(--muted)",fontSize:13}}>No preview available</span>
               </div>
             )}
             {(sw.screenshots||[]).filter(Boolean).length>0&&(
@@ -709,7 +711,7 @@ function BlackHole(){
 // --- App ---
 function App(){
   const [view, setView] = useState("store");
-  const [swList, setSwList] = useState([]);
+  const [swList, setSwList] = useState(DEFAULT_SW);
   const [storeInfo, setStoreInfo] = useState(DEFAULT_STORE);
   const [adminPin, setAdminPin] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -802,14 +804,6 @@ function App(){
   };
 
   if(previewSw) return <PreviewPage sw={previewSw} onClose={()=>setPreviewSw(null)}/>;
-
-  if(loading) return(
-    <div style={{position:"fixed",inset:0,background:"var(--bg)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,zIndex:9999}}>
-      <div style={{width:32,height:32,border:"1px solid var(--border)",borderTop:"1px solid var(--text)",borderRadius:"50%",animation:"spin .7s linear infinite"}}/>
-      <span style={{fontFamily:"var(--mono)",fontSize:11,color:"var(--muted)",letterSpacing:".1em",textTransform:"uppercase"}}>Loading</span>
-      <style>{"@keyframes spin { to { transform: rotate(360deg); } }"}</style>
-    </div>
-  );
 
   return(
     <div style={{position:"relative",minHeight:"100vh"}}>
