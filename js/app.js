@@ -731,19 +731,24 @@ function App(){
       setLoading(false);
     }
     loadData();
-    const FAKE_BASE = 337;
-    const key = "dynnvault_visited";
-    const visited = sessionStorage.getItem(key);
-    if(!visited){
-      sessionStorage.setItem(key,"1");
-      fetch("https://api.countapi.xyz/hit/dynnvault.site/visits")
-        .then(r=>r.json()).then(d=>setVisitors(FAKE_BASE + (d.value||0))).catch(()=>setVisitors(FAKE_BASE));
-    } else {
-      fetch("https://api.countapi.xyz/get/dynnvault.site/visits")
-        .then(r=>r.json()).then(d=>setVisitors(FAKE_BASE + (d.value||0))).catch(()=>setVisitors(FAKE_BASE));
+    // Visitor counter via Supabase
+    const visitKey = "dynnvault_visited";
+    const visited = sessionStorage.getItem(visitKey);
+    async function loadVisitors(){
+      try {
+        if(!visited){
+          sessionStorage.setItem(visitKey,"1");
+          // Increment visitor count
+          const { data } = await db.rpc("increment_visitors");
+          const count = data ?? (await db.from("store_settings").select("visitor_count").eq("id",1).single()).data?.visitor_count ?? 0;
+          setVisitors(count);
+        } else {
+          const { data } = await db.from("store_settings").select("visitor_count").eq("id",1).single();
+          setVisitors(data?.visitor_count ?? 0);
+        }
+      } catch(e){ setVisitors(0); }
     }
-    // Show immediately while fetching
-    setVisitors(FAKE_BASE);
+    loadVisitors();
   },[]);
 
   const showToast = (msg, type) => { setToast({msg,type}); setTimeout(()=>setToast(null),2800); };
