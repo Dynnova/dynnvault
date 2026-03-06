@@ -783,8 +783,9 @@ function App(){
     }; reader.readAsText(file); e.target.value="";
   };
   const doLogin = () => {
-    S.hash(pin).then(h=>{
-      if(h===adminPin){ setView("admin"); setPin(""); setPinErr(false); }
+    const salt = S.get("adminPinSalt")?.value || "";
+    S.hash(pin, salt).then(h => {
+      if(h === adminPin){ setView("admin"); setPin(""); setPinErr(false); }
       else { setPinErr(true); anime({targets:"#pin-inp",translateX:[0,-6,6,-4,4,0],duration:280,easing:'easeInOutSine'}); setTimeout(()=>setPinErr(false),700); }
     });
   };
