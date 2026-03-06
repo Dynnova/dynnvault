@@ -259,7 +259,8 @@ function PinChanger({currentPin, onSave}){
   const go = () => {
     if(n.length<4) return setErr("Min 4 chars");
     if(n!==c) return setErr("Mismatch");
-    S.hash(o).then(oh=>{ if(oh!==currentPin) return setErr("Wrong PIN"); onSave(n); setO(""); setN(""); setC(""); setErr(""); });
+    const salt = S.get("adminPinSalt")?.value || "";
+    S.hash(o, salt).then(oh=>{ if(oh!==currentPin) return setErr("Wrong PIN"); onSave(n); setO(""); setN(""); setC(""); setErr(""); });
   };
   return(
     <div style={{display:"flex",gap:10,alignItems:"flex-end",flexWrap:"wrap"}}>
