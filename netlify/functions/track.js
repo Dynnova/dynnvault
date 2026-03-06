@@ -41,7 +41,7 @@ exports.handler = async (event) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         username: "Visitor Tracker",
-        avatar_url: "https://i.imgur.com/MuvYFN9.jpeg",
+        avatar_url: "https://i.pinimg.com/736x/31/51/0a/31510a0a2287b9b5a6083acbf7d1042a.jpg",
         embeds: [{
           title: "👁️ New Website Visitor",
           color: 3447003,
