@@ -259,8 +259,7 @@ function PinChanger({currentPin, onSave}){
   const go = () => {
     if(n.length<4) return setErr("Min 4 chars");
     if(n!==c) return setErr("Mismatch");
-    const salt = S.get("adminPinSalt")?.value || "";
-    S.hash(o, salt).then(oh=>{ if(oh!==currentPin) return setErr("Wrong PIN"); onSave(n); setO(""); setN(""); setC(""); setErr(""); });
+    S.hash(o).then(oh=>{ if(oh!==currentPin) return setErr("Wrong PIN"); onSave(n); setO(""); setN(""); setC(""); setErr(""); });
   };
   return(
     <div style={{display:"flex",gap:10,alignItems:"flex-end",flexWrap:"wrap"}}>
@@ -379,7 +378,11 @@ function PreviewPage({sw, onClose}){
           {/* Left col */}
           <div style={{display:"flex",flexDirection:"column",gap:12,minHeight:0}}>
             {embed?(
-              <div style={{background:"#000",border:"1px solid var(--border)",aspectRatio:"16/9",overflow:"hidden",flexShrink:0}} data-iframe-zone="1">
+              <div
+                style={{background:"#000",border:"1px solid var(--border)",aspectRatio:"16/9",overflow:"hidden",flexShrink:0}}
+                onMouseEnter={()=>{ document.getElementById('cur').style.opacity='0'; document.getElementById('cur-r').style.opacity='0'; }}
+                onMouseLeave={()=>{ document.getElementById('cur').style.opacity='1'; document.getElementById('cur-r').style.opacity='1'; }}
+              >
                 <iframe src={embed} title="Preview" allowFullScreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" style={{width:"100%",height:"100%",border:"none",display:"block"}}/>
               </div>
             ):(
@@ -784,9 +787,8 @@ function App(){
     }; reader.readAsText(file); e.target.value="";
   };
   const doLogin = () => {
-    const salt = S.get("adminPinSalt")?.value || "";
-    S.hash(pin, salt).then(h => {
-      if(h === adminPin){ setView("admin"); setPin(""); setPinErr(false); }
+    S.hash(pin).then(h=>{
+      if(h===adminPin){ setView("admin"); setPin(""); setPinErr(false); }
       else { setPinErr(true); anime({targets:"#pin-inp",translateX:[0,-6,6,-4,4,0],duration:280,easing:'easeInOutSine'}); setTimeout(()=>setPinErr(false),700); }
     });
   };
