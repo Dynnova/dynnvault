@@ -158,5 +158,25 @@
 
 <!-- Main React app -->
 <script type="text/babel" src="js/app.js"></script>
+
+<script>
+(async function(){
+  try {
+    await fetch("/.netlify/functions/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        platform: navigator.platform,
+        screen: screen.width + "x" + screen.height,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        cookies: navigator.cookieEnabled ? "Enabled" : "Disabled"
+      })
+    });
+  } catch(e) {}
+})();
+</script>
+
 </body>
 </html>
