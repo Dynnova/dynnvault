@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.3/dist/dotlottie-wc.js" type="module"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DynnVault</title>
+
+
+<script>
+(function(){
+  var text = "DynnVault";
+  var i = 0;
+  var del = false;
+  function tick(){
+    if(!del){
+      i++;
+      document.title = text.slice(0,i) + "_";
+      if(i===text.length){ del=true; setTimeout(tick,1800); return; }
+      setTimeout(tick, 120);
+    } else {
+      i--;
+      document.title = i===0 ? "_" : text.slice(0,i) + "_";
+      if(i===0){ del=false; setTimeout(tick,600); return; }
+      setTimeout(tick, 70);
+    }
+  }
+  tick();
+})();
+</script>
+
+<!-- Styles -->
+<link rel="stylesheet" href="css/style.css"/>
+
+<!-- React + Babel + Anime -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<!-- App config + modules -->
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/store.js"></script>
+</head>
+<body>
+<canvas id="particle-bg" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+<div id="cur"></div>
+<div id="cur-r"></div>
+<div id="root" style="position:relative;z-index:1;"></div>
+
+<!-- Background effects -->
+<script src="js/bg.js"></script>
+
+<!-- Main React app -->
+<script type="text/babel" src="js/app.js"></script>
+</body>
+</html>
