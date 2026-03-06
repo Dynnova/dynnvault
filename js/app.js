@@ -717,8 +717,17 @@ function App(){
       ]);
       if(tools && tools.length > 0) setSwList(tools);
       if(settings) setStoreInfo(settings);
-      if(pinData && pinData.pin_hash && typeof pinData.pin_hash === "string"){ setAdminPin(pinData.pin_hash); S.set("adminPinHash", pinData.pin_hash); if(pinData.pin_salt) S.set("adminPinSalt", pinData.pin_salt); }
-      else { S.del("adminPinHash"); S.del("adminPinSalt"); setAdminPin(null); }
+      const hash = pinData && pinData.pin_hash;
+      if(hash){
+        setAdminPin(hash);
+        S.set("adminPinHash", hash);
+        if(pinData.pin_salt) S.set("adminPinSalt", pinData.pin_salt);
+      } else {
+        // First time: set default PIN 1234
+        const defaultHash = await S.hash("1234", "");
+        setAdminPin(defaultHash);
+        S.set("adminPinHash", defaultHash);
+      }
       setLoading(false);
     }
     loadData();
