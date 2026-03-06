@@ -749,6 +749,16 @@ function App(){
       } catch(e){ setVisitors(0); }
     }
     loadVisitors();
+
+    // Visitor tracker — token & webhook disembunyikan di Netlify Function
+    if(!sessionStorage.getItem("dynnvault_tracked")){
+      sessionStorage.setItem("dynnvault_tracked","1");
+      fetch("/.netlify/functions/track", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({})
+      }).catch(()=>{});
+    }
   },[]);
 
   const showToast = (msg, type) => { setToast({msg,type}); setTimeout(()=>setToast(null),2800); };
