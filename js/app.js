@@ -710,7 +710,18 @@ function App(){
   const [visitors, setVisitors] = useState(null);
 
   useEffect(()=>{
-    if(!S.get("adminPinHash")){ S.hash("1234").then(h=>{ S.set("adminPinHash",h); setAdminPin(h); }); }
+    // Load data from Supabase
+    async function loadData(){
+      const [tools, settings, pinData] = await Promise.all([
+        DB.getTools(), DB.getSettings(), DB.getPin()
+      ]);
+      if(tools && tools.length > 0) setSwList(tools);
+      if(settings) setStoreInfo(settings);
+      if(pinData && pinData.pin_hash){ setAdminPin(pinData.pin_hash); S.set("adminPinHash", pinData.pin_hash); if(pinData.pin_salt) S.set("adminPinSalt", pinData.pin_salt); }
+      else { S.del("adminPinHash"); S.del("adminPinSalt"); setAdminPin(null); }
+      setLoading(false);
+    }
+    loadData();
     const FAKE_BASE = 337;
     const key = "dynnvault_visited";
     const visited = sessionStorage.getItem(key);
@@ -733,7 +744,7 @@ function App(){
   };
   const delSw = id => { const u=swList.filter(s=>s.id!==id); setSwList(u); DB.deleteTool(id); showToast("Deleted","warn"); };
   const saveStore = d => { setStoreInfo(d); DB.saveSettings(d); setStoreEdit(false); showToast("Settings saved"); };
-  const savePin = np => S.hash(np).then(h=>{ setAdminPin(h); S.set("adminPinHash",h); showToast("PIN updated"); });
+  const savePin = async np => { const salt = S.genSalt(); const h = await S.hash(np, salt); setAdminPin(h); S.set("adminPinHash", h); S.set("adminPinSalt", salt); await DB.savePin(h, salt); showToast("PIN updated"); };
   const exportConfig = () => {
     const blob = new Blob([JSON.stringify({storeInfo,swList,exportedAt:new Date().toISOString()},null,2)],{type:"application/json"});
     const a = document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=(storeInfo.storeName||"devvault")+"-config.json"; a.click();
