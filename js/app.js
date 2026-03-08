@@ -263,7 +263,7 @@ function PinChanger({currentPin, onSave}){
     S.hash(o, salt).then(oh=>{ if(oh!==currentPin) return setErr("Wrong PIN"); onSave(n); setO(""); setN(""); setC(""); setErr(""); });
   };
   return(
-    <div style={{display:"flex",gap:10,alignItems:"flex-end",flexWrap:"wrap"}}>
+    <div style={{display:"flex",gap:10,alignItems:"flex-end",flexWrap:"wrap",maxWidth:"100%"}}>
       {[["Current",o,setO],["New",n,setN],["Confirm",c,setC]].map(([l,v,set])=>(
         <div key={l}><div style={{fontSize:10,color:"var(--muted)",letterSpacing:".04em",textTransform:"uppercase",marginBottom:5}}>{l}</div>
           <input type="password" className="form-input" style={s} value={v} onChange={e=>set(e.target.value)} placeholder="••••"/>
@@ -375,7 +375,7 @@ function PreviewPage({sw, onClose}){
       </div>
       <div style={{flex:1,overflow:"hidden",padding:"24px 28px",display:"flex",flexDirection:"column",position:"relative"}}>
         <PreviewBg/>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 300px",gap:20,maxWidth:1060,margin:"0 auto",width:"100%",flex:1,minHeight:0,position:"relative",zIndex:1}}>
+        <div style={{display:"grid",gridTemplateColumns:"clamp(200px, 1fr, 760px) min(300px, 100%)",gap:20,maxWidth:1060,margin:"0 auto",width:"100%",flex:1,minHeight:0,position:"relative",zIndex:1}}>
           {/* Left col */}
           <div style={{display:"flex",flexDirection:"column",gap:12,minHeight:0}}>
             {embed?(
@@ -905,7 +905,7 @@ function App(){
               <span className="nav-logo">{storeInfo.storeName}</span>
               <span className="admin-tag">admin</span>
             </div>
-            <div style={{display:"flex",gap:7,flexWrap:"wrap"}}>
+            <div style={{display:"flex",gap:6,flexWrap:"wrap",justifyContent:"flex-end",maxWidth:"calc(100vw - 140px)"}}>
               <Btn onClick={()=>setStoreEdit(true)} className="btn btn-sm" style={{display:"flex",alignItems:"center",gap:4}}><Icon n="cog" s={11}/>Settings</Btn>
               <Btn onClick={()=>setEditItem({id:"",name:"",category:"Utility",version:"1.0.0",description:"",status:"works",lastUpdate:"",downloadUrl:"#",previewUrl:"",image:"",screenshots:[]})} className="btn btn-primary btn-sm" style={{display:"flex",alignItems:"center",gap:4}}><Icon n="plus" s={11}/>Add tool</Btn>
               <Btn onClick={exportConfig} className="btn btn-sm" style={{display:"flex",alignItems:"center",gap:4}}><Icon n="export" s={11}/>Export</Btn>
@@ -915,9 +915,9 @@ function App(){
             </div>
           </nav>
 
-          <div style={{padding:"24px 28px",maxWidth:1000,margin:"0 auto"}}>
+          <div style={{padding:"16px max(12px, min(28px, 4vw))",maxWidth:1000,margin:"0 auto"}}>
             {/* Stats */}
-            <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:1,background:"var(--border)",marginBottom:20}}>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit, minmax(120px, 1fr))",gap:1,background:"var(--border)",marginBottom:20}}>
               {[["Total",swList.length],["Active",swList.filter(s=>s.status==="available").length],["Beta/Soon",swList.filter(s=>s.status!=="available").length],["Free",swList.filter(s=>s.price==="Free"||s.price==="FREE").length]].map(([l,v])=>(
                 <div key={l} style={{background:"var(--bg)",padding:"14px 16px"}}>
                   <div style={{fontFamily:"var(--mono)",fontSize:24,fontWeight:500,lineHeight:1,marginBottom:4}}>{v}</div>
@@ -946,7 +946,7 @@ function App(){
                       {sw.category} · v{sw.version} · updated {fmtDate(sw.lastUpdate)}
                     </div>
                   </div>
-                  <div style={{display:"flex",gap:6,flexShrink:0}}>
+                  <div style={{display:"flex",gap:6,flexShrink:0,alignItems:"center"}}>
                     <Btn onClick={()=>setEditItem({...sw,screenshots:sw.screenshots||[]})} className="btn btn-sm" style={{display:"flex",alignItems:"center",gap:4}}><Icon n="edit" s={11}/>Edit</Btn>
                     <Btn onClick={()=>{if(window.confirm(`Delete "${sw.name}"?`))delSw(sw.id);}} className="btn btn-sm btn-danger" style={{width:28,height:28,display:"flex",alignItems:"center",justifyContent:"center",padding:0}}><Icon n="trash" s={11}/></Btn>
                   </div>
