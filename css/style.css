@@ -534,3 +534,87 @@ select.form-input option { background: var(--surface); }
 }
 
 input, textarea, select { font-family: var(--sans); user-select: text; -webkit-user-select: text; }
+
+/* ========== RESPONSIVE / MOBILE ========== */
+@media (max-width: 640px) {
+
+  /* Cursor — sembunyiin di touch device */
+  #cur, #cur-r { display: none; }
+  body { cursor: auto; }
+
+  /* Nav */
+  .nav { padding: 0 16px; }
+
+  /* Hero */
+  .hero { padding: 24px 16px 16px; }
+  .hero-title { font-size: 2rem; }
+
+  /* Stats bar — 2 kolom biar ga terlalu sempit */
+  .stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
+    margin: 0 16px 32px;
+  }
+  .stats-bar .stat:nth-child(2) { border-right: none; }
+  .stats-bar .stat:nth-child(3) {
+    border-right: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+  }
+  .stats-bar .stat:nth-child(4) {
+    border-top: 1px solid var(--border);
+    border-right: none;
+  }
+
+  /* Tool grid — 1 kolom, hapus padding samping besar */
+  .tool-grid {
+    grid-template-columns: 1fr;
+    padding: 0 12px;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  /* Tool card */
+  .tool-card { padding: 18px 16px; }
+  .tool-card::after { border: none; }
+  .tool-card { border: 1px solid var(--border); }
+  .tool-card:hover { border-color: var(--border-hover); }
+
+  /* Footer */
+  .footer {
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  /* Modal — muncul dari bawah kayak sheet */
+  .modal-bg { padding: 0; align-items: flex-end; }
+  .modal {
+    max-width: 100% !important;
+    max-height: 92vh;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  /* Login card */
+  .login-card { padding: 28px 20px; }
+
+  /* Admin row */
+  .admin-row { padding: 10px 12px; gap: 8px; }
+
+  /* Blackhole sphere — scale down */
+  .blackhole-scene { width: 260px; height: 260px; }
+  .sphere-animation { width: 210px !important; height: 210px !important; }
+  .blackhole-wrap { padding: 40px 0 0; }
+
+  /* Preview bar */
+  .preview-bar { padding: 0 12px; gap: 8px; }
+  .preview-bar .btn { font-size: 11px; padding: 5px 8px; }
+}
+
+@media (max-width: 400px) {
+  .hero-title { font-size: 1.7rem; }
+  .stat-val { font-size: 18px; }
+  .tool-grid { padding: 0 8px; }
+}
