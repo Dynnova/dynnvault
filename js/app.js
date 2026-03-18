@@ -70,7 +70,7 @@ function StatusBadge({status}){
 // --- Truncated desc ---
 function Desc({text}){
   if(!text) return null;
-  return <p className="card-desc">{text}</p>;
+  return <p className="card-desc" style={{whiteSpace:"pre-wrap"}}>{text}</p>;
 }
 
 // --- Screenshot carousel ---
@@ -405,7 +405,7 @@ function PreviewPage({sw, onClose}){
             <div style={{flex:1,display:"flex",flexDirection:"column",minHeight:0}}>
               <div style={{fontSize:18,fontWeight:300,letterSpacing:"-.02em",marginBottom:3,flexShrink:0}}>{sw.name}</div>
               <div style={{fontFamily:"var(--mono)",fontSize:11,color:"var(--muted)",marginBottom:14,flexShrink:0}}>{sw.category} · v{sw.version}</div>
-              <p style={{fontSize:13,color:"var(--muted)",lineHeight:1.7,fontWeight:300,overflowY:"auto",flex:1,paddingRight:4,minHeight:0}}>{sw.description}</p>
+              <p style={{fontSize:13,color:"var(--muted)",lineHeight:1.7,fontWeight:300,overflowY:"auto",flex:1,paddingRight:4,minHeight:0,whiteSpace:"pre-wrap"}}>{sw.description}</p>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:8,paddingTop:14,borderTop:"1px solid var(--border)",marginTop:14,flexShrink:0}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
