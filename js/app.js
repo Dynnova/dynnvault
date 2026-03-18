@@ -377,8 +377,8 @@ function PreviewPage({sw, onClose}){
         <PreviewBg/>
         <div style={{display:"grid",gridTemplateColumns:"clamp(200px, 1fr, 760px) min(300px, 100%)",gap:20,maxWidth:1060,margin:"0 auto",width:"100%",flex:1,minHeight:0,position:"relative",zIndex:1}}>
           {/* Left col */}
-          <div style={{display:"flex",flexDirection:"column",gap:12,minHeight:0,height:"100%"}}>
-            {embed&&(
+          <div style={{display:"flex",flexDirection:"column",gap:12,minHeight:0}}>
+            {embed?(
               <div
                 style={{background:"#000",border:"1px solid var(--border)",aspectRatio:"16/9",overflow:"hidden",flexShrink:0}}
                 onMouseEnter={()=>{ document.getElementById('cur').style.opacity='0'; document.getElementById('cur-r').style.opacity='0'; }}
@@ -386,16 +386,16 @@ function PreviewPage({sw, onClose}){
               >
                 <iframe src={embed} title="Preview" allowFullScreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" style={{width:"100%",height:"100%",border:"none",display:"block"}}/>
               </div>
-            )}
-            {(sw.screenshots||[]).filter(Boolean).length>0?(
-              <div style={{flex:1,minHeight:220,position:"relative"}}>
-                <Carousel shots={sw.screenshots||[]}/>
-              </div>
-            ):(!embed&&(
-              <div style={{background:"var(--surface)",border:"1px solid var(--border)",flex:1,minHeight:220,display:"flex",alignItems:"center",justifyContent:"center"}}>
+            ):(
+              <div style={{background:"var(--surface)",border:"1px solid var(--border)",aspectRatio:"16/9",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
                 <span style={{color:"var(--muted)",fontSize:13}}>No preview available</span>
               </div>
-            ))}
+            )}
+            {(sw.screenshots||[]).filter(Boolean).length>0&&(
+              <div style={{flex:1,minHeight:200,position:"relative"}}>
+                <Carousel shots={sw.screenshots||[]}/>
+              </div>
+            )}
           </div>
 
           {/* Right col: stretch, download pinned bottom */}
