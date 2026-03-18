@@ -375,24 +375,26 @@ function PreviewPage({sw, onClose}){
       </div>
       <div style={{flex:1,overflow:"hidden",padding:"24px 28px",display:"flex",flexDirection:"column",position:"relative"}}>
         <PreviewBg/>
-        <div style={{display:"grid",gridTemplateColumns:"clamp(200px, 1fr, 760px) min(300px, 100%)",gap:20,maxWidth:1060,margin:"0 auto",width:"100%",flex:1,minHeight:0,position:"relative",zIndex:1,alignItems:"stretch"}}>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 300px",gap:20,maxWidth:1060,margin:"0 auto",width:"100%",flex:1,minHeight:0,position:"relative",zIndex:1,overflow:"hidden"}}>
           {/* Left col */}
-          <div style={{display:"flex",flexDirection:"column",gap:12,minHeight:0,height:"100%"}}>
+          <div style={{display:"flex",flexDirection:"column",gap:12,overflow:"hidden",minHeight:0}}>
             {embed?(
               <div
-                style={{background:"#000",border:"1px solid var(--border)",aspectRatio:"16/9",overflow:"hidden",flexShrink:0}}
+                style={{background:"#000",border:"1px solid var(--border)",position:"relative",paddingTop:"56.25%",overflow:"hidden",flexShrink:0}}
                 onMouseEnter={()=>{ document.getElementById('cur').style.opacity='0'; document.getElementById('cur-r').style.opacity='0'; }}
                 onMouseLeave={()=>{ document.getElementById('cur').style.opacity='1'; document.getElementById('cur-r').style.opacity='1'; }}
               >
-                <iframe src={embed} title="Preview" allowFullScreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" style={{width:"100%",height:"100%",border:"none",display:"block"}}/>
+                <iframe src={embed} title="Preview" allowFullScreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" style={{position:"absolute",inset:0,width:"100%",height:"100%",border:"none",display:"block"}}/>
               </div>
             ):(
-              <div style={{background:"var(--surface)",border:"1px solid var(--border)",aspectRatio:"16/9",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
-                <span style={{color:"var(--muted)",fontSize:13}}>No preview available</span>
+              <div style={{background:"var(--surface)",border:"1px solid var(--border)",position:"relative",paddingTop:"56.25%",flexShrink:0}}>
+                <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                  <span style={{color:"var(--muted)",fontSize:13}}>No preview available</span>
+                </div>
               </div>
             )}
             {(sw.screenshots||[]).filter(Boolean).length>0&&(
-              <div style={{flex:1,minHeight:200,position:"relative"}}>
+              <div style={{flex:1,minHeight:180,position:"relative",overflow:"hidden"}}>
                 <Carousel shots={sw.screenshots||[]}/>
               </div>
             )}
