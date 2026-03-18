@@ -375,9 +375,9 @@ function PreviewPage({sw, onClose}){
       </div>
       <div style={{flex:1,overflow:"hidden",padding:"24px 28px",display:"flex",flexDirection:"column",position:"relative"}}>
         <PreviewBg/>
-        <div style={{display:"grid",gridTemplateColumns:"clamp(200px, 1fr, 760px) min(300px, 100%)",gap:20,maxWidth:1060,margin:"0 auto",width:"100%",flex:1,minHeight:0,position:"relative",zIndex:1}}>
+        <div style={{display:"grid",gridTemplateColumns:"clamp(200px, 1fr, 760px) min(300px, 100%)",gap:20,maxWidth:1060,margin:"0 auto",width:"100%",flex:1,minHeight:0,position:"relative",zIndex:1,alignItems:"stretch"}}>
           {/* Left col */}
-          <div style={{display:"flex",flexDirection:"column",gap:12,minHeight:0}}>
+          <div style={{display:"flex",flexDirection:"column",gap:12,minHeight:0,height:"100%"}}>
             {embed?(
               <div
                 style={{background:"#000",border:"1px solid var(--border)",aspectRatio:"16/9",overflow:"hidden",flexShrink:0}}
