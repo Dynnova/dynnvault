@@ -1,0 +1,52 @@
+{
+  "storeInfo": {
+    "storeName": "DynnVault",
+    "storeTagline": "tools built different",
+    "storeDescription": "A personal collection of tools I've built. Feel free to use them.",
+    "githubUrl": "",
+    "instagramUrl": "",
+    "twitterUrl": "",
+    "discordUrl": ""
+  },
+  "swList": [
+    {
+      "id": "sw1",
+      "name": "AutoFlow",
+      "category": "Automation",
+      "version": "3.1.0",
+      "description": "Automate repetitive tasks with a visual workflow builder. Connect apps, trigger actions, run silent.",
+      "status": "works",
+      "lastUpdate": "2025-12-01",
+      "downloadUrl": "#",
+      "previewUrl": "",
+      "image": "",
+      "screenshots": []
+    },
+    {
+      "id": "sw2",
+      "name": "DataLens",
+      "category": "Analytics",
+      "version": "1.5.2",
+      "description": "Turn raw data into clear insights. Connect any database, build dashboards, share results.",
+      "status": "maintenance",
+      "lastUpdate": "2025-11-14",
+      "downloadUrl": "#",
+      "previewUrl": "",
+      "image": "",
+      "screenshots": []
+    },
+    {
+      "id": "sw3",
+      "name": "ShieldGuard",
+      "category": "Security",
+      "version": "2.0.0",
+      "description": "Audit your infrastructure. Detect vulnerabilities, map exposure, generate reports.",
+      "status": "not-works",
+      "lastUpdate": "2025-10-05",
+      "downloadUrl": "#",
+      "previewUrl": "",
+      "image": "",
+      "screenshots": []
+    }
+  ]
+}
