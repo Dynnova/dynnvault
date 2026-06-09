@@ -1,13 +1,4 @@
-// ============================================================
-// app.js — Main React app (no admin panel, no Supabase)
-// Tujuan     : Render store page, preview page, baca data.json
-// Dipakai    : index.html (ReactDOM.createRoot)
-// Dependensi : config.js (DATA_URL), store.js (DB.load)
-//              React 18, anime.js (CDN)
-// Fungsi     : App, Card, PreviewPage, BlackHole, FollowPath
-//              Carousel, Modal, Toast, StatusBadge
-// Side effect: GET data.json saat mount
-// ============================================================
+
 
 const {useState, useEffect, useRef} = React;
 
