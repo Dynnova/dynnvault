@@ -1,7 +1,7 @@
 {
   "storeInfo": {
     "storeName": "DynnVault",
-    "storeTagline": "tools built different",
+    "storeTagline": "Made by Love",
     "storeDescription": "A personal collection of tools I've built. Feel free to use them.",
     "githubUrl": "",
     "instagramUrl": "",
@@ -10,43 +10,20 @@
   },
   "swList": [
     {
-      "id": "sw1",
-      "name": "AutoFlow",
+      "id": "sw1773810840735",
+      "name": "DCQuest",
       "category": "Automation",
-      "version": "3.1.0",
-      "description": "Automate repetitive tasks with a visual workflow builder. Connect apps, trigger actions, run silent.",
+      "version": "1.5.0",
+      "description": "A lightweight and secure Discord quest automation tool. Designed for simplicity and performance, it helps you complete quests automatically without needing to install or play the required games.\n\nHow to Use\n\nRelaunch Discord through DCQuest. If Discord is not open, simply relaunch it.\n\nAccept the quest you want to complete.\n\nSelect a platform to get started, then choose the quest on Desktop.\n\nRun the inject.\n\nNote\nSome quests require streaming and being watched by another user. For these:\n\nJoin a voice channel first.\n\nMake sure your friend or your second account is watching your stream.\n\nThen run the inject.\n\nAfter injecting, you can safely close DCQuest.",
       "status": "works",
-      "lastUpdate": "2025-12-01",
-      "downloadUrl": "#",
-      "previewUrl": "",
-      "image": "",
-      "screenshots": []
-    },
-    {
-      "id": "sw2",
-      "name": "DataLens",
-      "category": "Analytics",
-      "version": "1.5.2",
-      "description": "Turn raw data into clear insights. Connect any database, build dashboards, share results.",
-      "status": "maintenance",
-      "lastUpdate": "2025-11-14",
-      "downloadUrl": "#",
-      "previewUrl": "",
-      "image": "",
-      "screenshots": []
-    },
-    {
-      "id": "sw3",
-      "name": "ShieldGuard",
-      "category": "Security",
-      "version": "2.0.0",
-      "description": "Audit your infrastructure. Detect vulnerabilities, map exposure, generate reports.",
-      "status": "not-works",
-      "lastUpdate": "2025-10-05",
-      "downloadUrl": "#",
-      "previewUrl": "",
-      "image": "",
-      "screenshots": []
+      "lastUpdate": "2026-02-18",
+      "downloadUrl": "https://github.com/Dynnova/dirrect-exe-test/releases/download/Web/dcquest-setup.exe",
+      "previewUrl": "https://youtu.be/D8I3fO6xSlk",
+      "image": "https://i.imgur.com/4kkcEC2.png",
+      "screenshots": [
+        "https://i.imgur.com/6YlH7lB.png",
+        "https://i.imgur.com/CodSnTj.png"
+      ]
     }
   ]
 }
